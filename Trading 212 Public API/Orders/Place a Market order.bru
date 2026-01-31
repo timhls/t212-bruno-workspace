@@ -1,0 +1,244 @@
+meta {
+  name: Place a Market order
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v0/equity/orders/market
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+body:json {
+  {
+    "extendedHours": false,
+    "quantity": 0,
+    "ticker": ""
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "createdAt": "",
+          "currency": "",
+          "extendedHours": false,
+          "filledQuantity": 0,
+          "filledValue": 0,
+          "id": 0,
+          "initiatedFrom": "",
+          "instrument": {
+            "currency": "",
+            "isin": "",
+            "name": "",
+            "ticker": ""
+          },
+          "limitPrice": 0,
+          "quantity": 0,
+          "side": "",
+          "status": "",
+          "stopPrice": 0,
+          "strategy": "",
+          "ticker": "",
+          "timeInForce": "",
+          "type": "",
+          "value": 0
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Failed validation
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Bad API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Scope( orders:execute ) missing for API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 408 Response
+  description: Timed-out
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 408
+      text: Request Timeout
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 429 Response
+  description: Limited: 50 / 1m0s
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/orders/market
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "extendedHours": false,
+        "quantity": 0,
+        "ticker": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 429
+      text: Too Many Requests
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

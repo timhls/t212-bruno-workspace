@@ -1,0 +1,228 @@
+meta {
+  name: Get paid out dividends
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v0/equity/history/dividends
+  body: none
+  auth: basic
+}
+
+params:query {
+  ~cursor: 
+  ~ticker: 
+  ~limit: 
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "items": [
+            {
+              "amount": 0,
+              "amountInEuro": 0,
+              "currency": "",
+              "grossAmountPerShare": 0,
+              "instrument": {
+                "currency": "",
+                "isin": "",
+                "name": "",
+                "ticker": ""
+              },
+              "paidOn": "",
+              "quantity": 0,
+              "reference": "",
+              "ticker": "",
+              "tickerCurrency": "",
+              "type": ""
+            }
+          ],
+          "nextPagePath": ""
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad filtering arguments
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Bad API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Scope( history:dividends ) missing for API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 408 Response
+  description: Timed-out
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 408
+      text: Request Timeout
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 429 Response
+  description: Limited: 6 / 1m0s
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/dividends
+    method: GET
+    mode: none
+    params:query: {
+      ~cursor: 
+      ~ticker: 
+      ~limit: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 429
+      text: Too Many Requests
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

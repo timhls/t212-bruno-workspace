@@ -1,0 +1,186 @@
+meta {
+  name: Fetch all open positions
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v0/equity/positions
+  body: none
+  auth: basic
+}
+
+params:query {
+  ~ticker: 
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/positions
+    method: GET
+    mode: none
+    params:query: {
+      ~ticker: 
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        [
+          {
+            "averagePricePaid": 0,
+            "createdAt": "",
+            "currentPrice": 0,
+            "instrument": {
+              "currency": "",
+              "isin": "",
+              "name": "",
+              "ticker": ""
+            },
+            "quantity": 0,
+            "quantityAvailableForTrading": 0,
+            "quantityInPies": 0,
+            "walletImpact": {
+              "currency": "",
+              "currentValue": 0,
+              "fxImpact": 0,
+              "totalCost": 0,
+              "unrealizedProfitLoss": 0
+            }
+          }
+        ]
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Bad API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/positions
+    method: GET
+    mode: none
+    params:query: {
+      ~ticker: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Scope( portfolio ) missing for API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/positions
+    method: GET
+    mode: none
+    params:query: {
+      ~ticker: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 408 Response
+  description: Timed-out
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/positions
+    method: GET
+    mode: none
+    params:query: {
+      ~ticker: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 408
+      text: Request Timeout
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 429 Response
+  description: Limited: 1 / 1s
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/positions
+    method: GET
+    mode: none
+    params:query: {
+      ~ticker: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 429
+      text: Too Many Requests
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

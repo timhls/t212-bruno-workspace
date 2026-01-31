@@ -1,0 +1,274 @@
+meta {
+  name: Create pie
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v0/equity/pies
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+body:json {
+  {
+    "dividendCashAction": "",
+    "endDate": "",
+    "goal": 0,
+    "icon": "",
+    "instrumentShares": {},
+    "name": ""
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "instruments": [
+            {
+              "currentShare": 0,
+              "expectedShare": 0,
+              "issues": [
+                {
+                  "name": "",
+                  "severity": ""
+                }
+              ],
+              "ownedQuantity": 0,
+              "result": {
+                "priceAvgInvestedValue": 0,
+                "priceAvgResult": 0,
+                "priceAvgResultCoef": 0,
+                "priceAvgValue": 0
+              },
+              "ticker": ""
+            }
+          ],
+          "settings": {
+            "creationDate": "",
+            "dividendCashAction": "",
+            "endDate": "",
+            "goal": 0,
+            "icon": "",
+            "id": 0,
+            "initialInvestment": 0,
+            "instrumentShares": {},
+            "name": "",
+            "publicUrl": ""
+          }
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad create request
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Bad API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Scope( pies:write ) missing for API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 408 Response
+  description: Timed-out
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 408
+      text: Request Timeout
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 429 Response
+  description: Limited: 1 / 5s
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/pies
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dividendCashAction": "",
+        "endDate": "",
+        "goal": 0,
+        "icon": "",
+        "instrumentShares": {},
+        "name": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 429
+      text: Too Many Requests
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

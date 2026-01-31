@@ -1,0 +1,257 @@
+meta {
+  name: Request a CSV report
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/v0/equity/history/exports
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: {{username}}
+  password: {{password}}
+}
+
+body:json {
+  {
+    "dataIncluded": {
+      "includeDividends": false,
+      "includeInterest": false,
+      "includeOrders": false,
+      "includeTransactions": false
+    },
+    "timeFrom": "",
+    "timeTo": ""
+  }
+}
+
+example {
+  name: 200 Response
+  description: OK
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    headers: {
+      Content-Type: application/json
+    }
+  
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: json
+      content: '''
+        {
+          "reportId": 0
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: 400 Response
+  description: Bad filtering arguments
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 401 Response
+  description: Bad API key
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 401
+      text: Unauthorized
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 403 Response
+  description: Missing Permissions
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 403
+      text: Forbidden
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 408 Response
+  description: Timed-out
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 408
+      text: Request Timeout
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
+
+example {
+  name: 429 Response
+  description: Limited: 1 / 30s
+  
+  request: {
+    url: {{baseUrl}}/api/v0/equity/history/exports
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "dataIncluded": {
+          "includeDividends": false,
+          "includeInterest": false,
+          "includeOrders": false,
+          "includeTransactions": false
+        },
+        "timeFrom": "",
+        "timeTo": ""
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 429
+      text: Too Many Requests
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
