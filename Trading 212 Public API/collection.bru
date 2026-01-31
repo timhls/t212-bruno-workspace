@@ -5,3 +5,21 @@ meta {
 auth {
   mode: none
 }
+
+script:pre-request {
+  const key = bru.getEnvVar("apiKey");
+  const secret = bru.getEnvVar("apiSecret");
+  
+  // Log to verify variables are read
+  console.log("API Key loaded:", key ? "YES" : "NO"); 
+  console.log("API Secret loaded:", secret ? "YES" : "NO");
+  
+  if (key && secret) {
+    const combined = `${key}:${secret}`;
+    const encoded = btoa(combined);
+    console.log("Generated Header:", `Basic ${encoded}`); // Debugging only!
+    req.setHeader("Authorization", `Basic ${encoded}`);
+  } else {
+    console.log("ERROR: Credentials missing");
+  }
+}
